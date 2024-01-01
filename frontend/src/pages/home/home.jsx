@@ -5,8 +5,8 @@ import Widgets from "../widgets/widgets";
 
 const Home = () => {
     return(
-       <div>
-        <Sidebar/>
+       <div className="app">
+        <Sidebar handlelogout={handlelogout} user={user}/>
         <Feed/>
         <Widgets/>
        </div>

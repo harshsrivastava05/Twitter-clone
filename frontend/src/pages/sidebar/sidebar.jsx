@@ -17,7 +17,7 @@ import MailIcon from '@mui/icons-material/Mail';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Avatar, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
 
-const Sidebar = ({handlelogout, user}) => {
+const Sidebar = ({ handlelogout, user }) => {
     const [anchorEl, setanchorE1] = useState(null)
     const openmenu = Boolean(anchorEl)
 
@@ -90,7 +90,7 @@ const Sidebar = ({handlelogout, user}) => {
                     </div>
                     <IconButton
                         size="small"
-                        sx={{ ml: 2 }}
+                        sx={{ ml: 2, color: "white" }}
                         aria-controls={openmenu ? "basic-menu" : undefined}
                         aria-haspopup="true"
                         aria-expanded={openmenu ? "true" : undefined}
@@ -114,7 +114,7 @@ const Sidebar = ({handlelogout, user}) => {
                                 <ListItemIcon className="done_icon"><DoneIcon /></ListItemIcon>
                             </div>
                         </MenuItem>
-                        <Divider/>
+                        <Divider />
                         <MenuItem onClick={handleclose}>Add an existing account</MenuItem>
                         <MenuItem onClick={handlelogout}>Log out</MenuItem>
                     </Menu>

@@ -11,6 +11,44 @@ import "./App.css";
 import { useAuthState } from "react-firebase-hooks/auth";
 import auth from "./firebase.init";
 import { Loader } from "./pages/loader";
+import Feed from "./pages/feed/feed";
+import Bookmark from "./pages/bookmarks/bookmark";
+import Explore from "./pages/explore/explore";
+import List from "./pages/list/list";
+import Message from "./pages/Messages/message";
+import More from "./pages/more/more";
+import Notification from "./pages/notification/notification";
+import Profile from "./pages/profile/profile";
+
+
+
+function App() {
+
+  return (
+    <div className="app">
+      <Router>
+        <Routes>
+          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
+          <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} >
+            <Route path="feed" element={<Feed />}/>
+            <Route path="bookmarks" element={<Bookmark />}/>
+            <Route path="explore" element={<Explore />}/>
+            <Route path="list" element={<List />}/>
+            <Route path="messages" element={<Message />}/>
+            <Route path="more" element={<More />}/>
+            <Route path="notification" element={<Notification />}/>
+            <Route path="profile" element={<Profile />}/>
+          </Route>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/loader" element={<Loader />} />
+          <Route />
+          <Route />
+        </Routes>
+      </Router>
+    </div>
+  )
+};
 
 const ProtectedRoute = ({ children }) => {
   const [user, loading] = useAuthState(auth)
@@ -26,22 +64,4 @@ const ProtectedRoute = ({ children }) => {
   return children;
 }
 
-function App() {
-
-  return (
-    <div className="app">
-      <Router>
-        <Routes>
-          <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/loader" element={<Loader />} />
-          <Route />
-          <Route />
-        </Routes>
-      </Router>
-    </div>
-  )
-}
-
-export default App
+export default App;

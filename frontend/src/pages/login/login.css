@@ -33,11 +33,13 @@
 .heading,
 h1 {
   font-size: 50px;
+  color: rgba(0, 0, 0, 0.829);
 }
 
 .heading1,
 h3 {
   font-size: 35px;
+  color: rgba(0, 0, 0, 0.808);
 
   justify-content: end;
 }

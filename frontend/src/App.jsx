@@ -22,8 +22,6 @@ import Profile from "./pages/profile/profile";
 import Tweetbox from "./pages/feed/tweetbox/tweetbox";
 import { UserAuthContextProvider } from "./context/UserAuthContext";
 
-
-
 function App() {
 
   return (

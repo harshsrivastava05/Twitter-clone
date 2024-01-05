@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import TwitterIcon from '@mui/icons-material/Twitter';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import './sidebar.css';
@@ -16,14 +16,18 @@ import { Link } from "react-router-dom";
 import Customlink from "./customlink";
 import Uselogedinuser from "../../uselogedinuser/uselogedinuser";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Sidebar = ({ handlelogout, user }) => {
     const [anchorEl, setanchorE1] = useState(null)
+    const [name, setName] = useState('');
+    const [username, setUsername] = useState(' ');
     const openmenu = Boolean(anchorEl)
-    const loggedInUser = Uselogedinuser(); 
+    const loggedInUser = Uselogedinuser();
     const navigate = useNavigate();
     const result = user?.email?.split('@')[0];
-    
+    const googlename = user?.displayName
+// console.log( user?.displayName)
     const sideoptions = [
         {
             icon: HomeRoundedIcon,
@@ -67,6 +71,13 @@ const Sidebar = ({ handlelogout, user }) => {
             link: 'more'
         }
     ];
+    useEffect(() => {
+        async function Name(){
+           setName(loggedInUser.fullname) 
+           setUsername(loggedInUser.username)
+        }
+        Name();
+    },[loggedInUser])
 
     const handleclick = (e) => {
         setanchorE1(e.currentTarget)
@@ -76,7 +87,7 @@ const Sidebar = ({ handlelogout, user }) => {
         setanchorE1(null)
     }
 
-  
+
 
     return (
         <div className="sidebar">
@@ -98,8 +109,8 @@ const Sidebar = ({ handlelogout, user }) => {
                 <div className="Profile_info">
                     <Avatar src={loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} />
                     <div className="User_info" style={{ color: 'black' }}>
-                        <h4> {loggedInUser[0]?.name ? loggedInUser[0].name : user && user.displayName}</h4>
-                        <h5>@{result}</h5>
+                        <h4> {name? name:googlename }</h4>
+                        <h5>@{username? username : result}</h5>
                     </div>
                     <IconButton
                         size="small"
@@ -119,12 +130,12 @@ const Sidebar = ({ handlelogout, user }) => {
                     >
                         <MenuItem className="profile_info1" onClick={() => navigate('/home/profile')}>
                             <Avatar className="avatar" src={loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} >
-                                
+
                             </Avatar>
                             <div className="user_info subUser_info">
                                 <div>
-                                    <h4>{loggedInUser[0]?.name ? loggedInUser[0].name : user && user.displayName}</h4>
-                                    <h5>@{result}</h5>
+                                    <h4>{name? name:googlename}</h4>
+                                    <h5>@{username? username : result}</h5>
                                 </div>
                                 <ListItemIcon className="done_icon"><DoneIcon /></ListItemIcon>
                             </div>
@@ -132,7 +143,7 @@ const Sidebar = ({ handlelogout, user }) => {
 
                         <Divider />
                         <MenuItem onClick={handleclose}>Add an existing account</MenuItem>
-                        <MenuItem onClick={handlelogout}>Log out @{result}</MenuItem>
+                        <MenuItem onClick={handlelogout}>Log out @{username? username : result}</MenuItem>
                     </Menu>
                 </div>
             </div>

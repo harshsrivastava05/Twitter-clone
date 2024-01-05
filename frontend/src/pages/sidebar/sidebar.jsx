@@ -8,55 +8,63 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import FeaturedPlayListIcon from '@mui/icons-material/FeaturedPlayList';
 import PersonIcon from '@mui/icons-material/Person';
-import PeopleIcon from '@mui/icons-material/People';
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import DoneIcon from '@mui/icons-material/Done';
-// import FormatListBulletedIcon from '@mui/icons-material/FormatListBulleted';
-// import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 import MailIcon from '@mui/icons-material/Mail';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { Avatar, Button, Divider, IconButton, ListItemIcon, Menu, MenuItem } from "@mui/material";
+import { Link } from "react-router-dom";
+import Customlink from "./customlink";
+import Uselogedinuser from "../../uselogedinuser/uselogedinuser";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = ({ handlelogout, user }) => {
     const [anchorEl, setanchorE1] = useState(null)
     const openmenu = Boolean(anchorEl)
-
+    const loggedInUser = Uselogedinuser(); 
+    const navigate = useNavigate();
+    const result = user?.email?.split('@')[0];
+    
     const sideoptions = [
         {
             icon: HomeRoundedIcon,
-            name: 'Home'
+            name: 'Home',
+            link: 'feed'
         },
         {
             icon: SearchIcon,
-            name: 'Explore'
+            name: 'Explore',
+            link: 'explore'
         },
         {
             icon: NotificationsIcon,
-            name: 'Notification'
+            name: 'Notification',
+            link: 'notification'
         },
         {
             icon: MailIcon,
-            name: 'Messages'
+            name: 'Messages',
+            link: 'messages'
+
         },
         {
             icon: FeaturedPlayListIcon,
-            name: 'List'
+            name: 'List',
+            link: 'list'
         },
         {
             icon: BookmarkIcon,
-            name: 'Bookmarks'
-        },
-        {
-            icon: PeopleIcon,
-            name: 'Comunities'
+            name: 'Bookmarks',
+            link: 'bookmark'
         },
         {
             icon: PersonIcon,
-            name: 'Profile'
+            name: 'Profile',
+            link: 'profile'
         },
         {
             icon: MoreHorizIcon,
-            name: 'More'
+            name: 'More',
+            link: 'more'
         }
     ];
 
@@ -68,29 +76,34 @@ const Sidebar = ({ handlelogout, user }) => {
         setanchorE1(null)
     }
 
-    // const handlelogout = () => {
-
-    // }
+  
 
     return (
         <div className="sidebar">
-            <TwitterIcon className="sidebar_twittericon" />
+            <Link to={'/home/feed'}>
+                <TwitterIcon className="sidebar_twittericon" />
+            </Link>
             <div>
-                {sideoptions.map(({ icon, name }) => (
-                    <Sideoptions key={name} Icon={icon} text={name} />
+                {sideoptions.map(({ icon, name, link }) => (
+                    <Customlink to={`/home/${link}`}>
+                        <Sideoptions key={name} Icon={icon} text={name} />
+                    </Customlink>
+
                 ))}
-                <Button variant="outlined" className="sidebar_tweet">
-                    Tweet
-                </Button>
+                <Link to='/home/tweet'>
+                    <Button variant="outlined" className="sidebar_tweet">
+                        Tweet
+                    </Button>
+                </Link>
                 <div className="Profile_info">
-                    <Avatar src={AccountCircleIcon} />
-                    <div className="User_info">
-                        <h4>Harsh</h4>
-                        <h5>@harsh07</h5>
+                    <Avatar src={loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} />
+                    <div className="User_info" style={{ color: 'black' }}>
+                        <h4> {loggedInUser[0]?.name ? loggedInUser[0].name : user && user.displayName}</h4>
+                        <h5>@{result}</h5>
                     </div>
                     <IconButton
                         size="small"
-                        sx={{ ml: 2, color: "white" }}
+                        sx={{ ml: 2 }}
                         aria-controls={openmenu ? "basic-menu" : undefined}
                         aria-haspopup="true"
                         aria-expanded={openmenu ? "true" : undefined}
@@ -104,19 +117,22 @@ const Sidebar = ({ handlelogout, user }) => {
                         onClick={handleclose}
                         onClose={handleclose}
                     >
-                        <MenuItem className="profile_info1">
-                            <Avatar src={AccountCircleIcon} />
+                        <MenuItem className="profile_info1" onClick={() => navigate('/home/profile')}>
+                            <Avatar className="avatar" src={loggedInUser[0]?.profileImage ? loggedInUser[0]?.profileImage : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"} >
+                                
+                            </Avatar>
                             <div className="user_info subUser_info">
                                 <div>
-                                    <h4>Harsh</h4>
-                                    <h5>@harsh07</h5>
+                                    <h4>{loggedInUser[0]?.name ? loggedInUser[0].name : user && user.displayName}</h4>
+                                    <h5>@{result}</h5>
                                 </div>
                                 <ListItemIcon className="done_icon"><DoneIcon /></ListItemIcon>
                             </div>
                         </MenuItem>
+
                         <Divider />
                         <MenuItem onClick={handleclose}>Add an existing account</MenuItem>
-                        <MenuItem onClick={handlelogout}>Log out</MenuItem>
+                        <MenuItem onClick={handlelogout}>Log out @{result}</MenuItem>
                     </Menu>
                 </div>
             </div>

@@ -66,7 +66,7 @@ const Tweetbox = () => {
         formdata.set('image', image);
 
         try {
-            const res = await axios.post('https://api.imgbb.com/1/upload?expiration=600&key=fd6e9dfa7e37ed742db8e15bb202e08e', formdata);
+            const res = await axios.post('https://api.imgbb.com/1/upload?key=fd6e9dfa7e37ed742db8e15bb202e08e', formdata);
             setimageurl(res.data.data.display_url);
             console.log(res.data.data.display_url);
         } catch (error) {

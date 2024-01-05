@@ -8,6 +8,7 @@
 .sideoptions:hover {
   background-color: var(--twitter-background);
   border-radius: 30px;
+  width: 170px;
   color: #50b7f5;
   transition: color 100ms ease-out;
 }
@@ -18,17 +19,16 @@
   margin-right: 20px;
 }
 
-.sideoptions>.MuiSvgIcon-root {
-    padding: 10px 15px;
+.sideoptions > .MuiSvgIcon-root {
+  padding: 10px 15px;
 }
 
 .done_icon {
   color: #50b7f5 !important;
 }
 
-@media screen and (max-width:688px) {
-    .sidebar_tweet{
-        display: none;
-    }
+@media screen and (max-width: 688px) {
+  .sidebar_tweet {
+    display: none;
+  }
 }
-

@@ -18,9 +18,7 @@ function Uselogedinuser() {
             }
         }
         fetchData();
-        // if (email) {
-           
-        // }
+        
     }, [email]);
 
     return loggedInUser;

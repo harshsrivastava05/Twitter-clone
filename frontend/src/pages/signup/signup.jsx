@@ -2,10 +2,12 @@ import auth from "../../firebase.init"
 import React, { useState } from "react";
 import twittericon from "../../assets/images/twittericon.jpg";
 import TwitterIcon from '@mui/icons-material/Twitter';
-import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
+// import { useCreateUserWithEmailAndPassword, useSignInWithGoogle } from 'react-firebase-hooks/auth';
 import GoogleButton from 'react-google-button'
 import { Link, useNavigate } from "react-router-dom";
 import "../login/login.css"
+import axios from "axios";
+import { useUserAuth } from "../../context/UserAuthContext";
 
 
 export function Signup() {
@@ -14,39 +16,39 @@ export function Signup() {
     const [fullname, setfullname] = useState("")
     const [password, setpassword] = useState("")
     const navigate = useNavigate()
-    const [signInWithGoogle, googleuser, googleloading, googleerror] = useSignInWithGoogle(auth);
-
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        loading,
-        error,
-    ] = useCreateUserWithEmailAndPassword(auth);
-
-    if (user || googleuser) {
-        navigate('/')
-        console.log(user)
-        console.log(googleuser)
-    }
-    if (error || googleerror) {
-        console.log(error.message)
-        console.log(googleerror.message)
-    }
-    if (loading || googleloading) {
-        console.log("loading...")
-    }
+    const [error, setError] = useState("");
+    const { signUp } = useUserAuth();
+    const { googleSignIn } = useUserAuth();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await createUserWithEmailAndPassword(email, password);
+            await signUp(email, password);
+            const user = {
+                username: username,
+                fullname: fullname,
+                email: email,
+                password:password
+            }
+           const res = await axios.post('http://localhost:3000/signup' , user);
+           const data = res.data;
+                console.log("data:", data);
+                window.alert("user registered successfully")
+                navigate('/login');
+
         } catch (err) {
             window.alert(err.message);
         }
     }
     const handleGoogleSignIn = async (e) => {
         e.preventDefault();
-        signInWithGoogle()
+        try {
+            await googleSignIn();
+            navigate("/");
+        } catch (error) {
+            console.log(error.message);
+            console.log(error);
+        }
     };
 
     return (
@@ -59,8 +61,8 @@ export function Signup() {
 
 
                 <div className="form-container">
-                    <div className="">
-                        <TwitterIcon className="Twittericon" style={{ color: "skyblue", marginLeft: '150px' }} />
+                    <div className="form-box">
+                        <TwitterIcon className="Twittericon" />
 
                         <h2 className="heading">Happening now</h2>
 

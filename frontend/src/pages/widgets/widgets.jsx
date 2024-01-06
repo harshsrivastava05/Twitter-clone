@@ -3,6 +3,7 @@ import "./Widgets.css";
 import {
   TwitterTimelineEmbed,
   TwitterTweetEmbed,
+  TwitterShareButton, TwitterHashtagButton
 } from "react-twitter-embed";
 import SearchIcon from "@mui/icons-material/Search";
 
@@ -22,6 +23,14 @@ function Widgets() {
         <TwitterTimelineEmbed
           sourceType="profile"
           screenName="elonmusk"
+          options={{ height: 400 }}
+        />
+        <TwitterTweetEmbed
+          tweetId={'933354946111705097'}
+        />
+        <TwitterTimelineEmbed
+          sourceType="profile"
+          screenName="saurabhnemade"
           options={{ height: 400 }}
         />
 

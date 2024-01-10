@@ -16,7 +16,7 @@ function Widgets() {
       </div>
 
       <div className="widgets__widgetContainer">
-        <h2>What's happening</h2>
+        <h2 style={{color:'black'}}>What's happening</h2>
 
         <TwitterTweetEmbed tweetId={"1557187138352861186"} />
 

@@ -2,6 +2,10 @@ body {
   --twitter-color: #50b7f5;
   --twitter-background: #e6ecf0;
   background-color: white;
+  margin: 0;
+  padding: 0;
+  overflow:hidden ;
+  overflow-y: scroll;
 }
 
 .app {

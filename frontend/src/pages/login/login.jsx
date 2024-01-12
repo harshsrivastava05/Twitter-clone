@@ -1,111 +1,162 @@
-import twittericon from "../../assets/images/twittericon.jpg";
-import TwitterIcon from '@mui/icons-material/Twitter';
-import React, { useState } from "react";
-import GoogleButton from 'react-google-button'
-import { Link, useNavigate } from "react-router-dom";
-import "./login.css"
-import { useUserAuth } from "../../context/UserAuthContext";
-
-const Login = () => {
-    const [email, setemail] = useState("")
-    const [password, setpassword] = useState("")
-    const [error, setError] = useState("");
-    const { logIn, googleSignIn } = useUserAuth();
-    const navigate = useNavigate()
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setError("");
-        try {
-            await logIn(email, password);
-            navigate("/");
-        } catch (err) {
-            setError(err.message);
-            window.alert(err.message);
-        }
-    };
-
-    const handleGoogleSignIn = async (e) => {
-        e.preventDefault();
-        try {
-            await googleSignIn();
-            navigate("/");
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
-
-    return (
-        <div className="login-container">
-            <div className="image-container">
-                <img className=" image" src={twittericon} alt="twitterImage" />
-            </div>
-
-            <div className="form-container">
-                <div className="form-box" >
-                    <TwitterIcon className="Twittericon" />
-                    <h2 className="heading">Happening now</h2>
-                    <div class="d-flex align-items-sm-center">
-                        <h3 className="heading1"> Login now! </h3>
-                    </div>
-
-                    {error && <p>{error.message}</p>}
-                    <form onSubmit={handleSubmit}>
-
-                        <input
-                            type="email" className="email"
-                            placeholder="Email address"
-                            onChange={(e) => setemail(e.target.value)}
-                        />
-
-
-
-                        <input className="password"
-                            type="password"
-                            placeholder="Password"
-                            onChange={(e) => setpassword(e.target.value)}
-                        />
-
-
-                        <div className="btn-login">
-                            <button type="submit" className="btn" >Log In</button>
-                        </div>
-                    </form>
-                    <hr />
-                    <div>
-                        <GoogleButton
-
-                            className="g-btn"
-                            type="light"
-
-                            onClick={handleGoogleSignIn}
-                        />
-
-
-                    </div>
-                </div>
-                <div style={{
-                    color:'black'
-                }}>
-                    Don't have an account?
-                    <Link
-                        to="/signup"
-                        style={{
-                            textDecoration: 'none',
-                            color: 'skyblue',
-                            fontWeight: '600',
-                            marginLeft: '5px'
-                        }}
-                    >
-                        Sign up
-                    </Link>
-                </div>
-
-            </div>
-
-
-        </div>
-    )
+.login-container {
+  display: flex;
+  flex: 1;
+  width: 100vw;
+  min-height: 100vh;
 }
 
-export default Login;
+.form-container {
+  flex: 1;
+  padding: 50px;
+  margin: 10px;
+  /* margin-left: -50px; */
+  align-content: center;
+}
+
+.form-box {
+  justify-content: left;
+  align-items: inherit;
+  grid-row: auto;
+}
+
+.Twittericon {
+  color: skyblue;
+  margin-left: 50%;
+  /* max-width: 50%; */
+  /* display: flex; */
+}
+
+.input-form {
+  width: 20px;
+}
+
+.heading,
+h1 {
+  font-size: 50px;
+  color: rgba(0, 0, 0, 0.829);
+}
+
+.heading1,
+h3 {
+  font-size: 35px;
+  color: rgba(0, 0, 0, 0.808);
+
+  justify-content: end;
+}
+
+.image-container {
+  flex: 2;
+  margin-left: -100px;
+}
+
+.image {
+  max-width: 100%;
+  height: 100%;
+  /* margin-left: -50px; */
+}
+
+input {
+  display: grid;
+  margin-bottom: 1px;
+  padding: 5px;
+  background-color: white;
+  margin-top: 20px;
+  color: black;
+  font-size: medium;
+  font-weight: 500;
+}
+
+.email,
+.password {
+  background-color: #e8f0fe;
+  width: 70%;
+  border-radius: 8px;
+  padding: 14px;
+  border: none;
+  outline: none;
+}
+
+.display-name {
+  background-color: #e8f0fe;
+  width: 70%;
+  border-radius: 8px;
+  padding: 14px;
+  border: none;
+  outline: none;
+}
+
+.btn-login {
+  padding: 7px;
+}
+
+.btn {
+  background-color: rgb(92, 199, 241);
+  width: 75%;
+  margin-right: 20px;
+  padding: 14px;
+  border-radius: 8px;
+  font-size: 17px;
+  border: none;
+  outline: none;
+  margin-bottom: 20px;
+  margin-top: 15px;
+}
+
+.g-btn {
+  border: 1px solid;
+  height: 40px !important;
+  line-height: 40px !important;
+  font-size: 15px !important;
+  width: 70% !important;
+  margin: 10px;
+}
+
+.google-button {
+  margin-top: 5%;
+}
+
+.g-btn > div,
+.g-btn > div > svg {
+  height: 30px !important;
+}
+
+.errorMessage {
+  color: red;
+  font-weight: 500;
+  margin: 10px 0;
+}
+
+.signUpText > Link {
+  text-decoration: none;
+  color: var(--twitter-color) !important;
+}
+
+@media screen and (max-width: 688px) {
+  .login-container {
+    order: 2;
+    display: flex;
+    flex-direction: column;
+    font-size: 20px;
+  }
+
+  .form-container {
+    padding: 10px;
+  }
+
+  .image-container {
+    width: 100%;
+    vertical-align: text-bottom;
+    display: flex;
+    flex-direction: column-reverse;
+    order: 1;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .image {
+    order: 2;
+    width: 100%;
+    height: 100%;
+    margin-left: 100px;
+  }
+}

@@ -1,5 +1,5 @@
 import { Avatar, Button } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import "./tweetbox.css"
 import axios from 'axios';
@@ -17,6 +17,9 @@ const Tweetbox = () => {
     const { user } = useUserAuth();
     const email = user?.email;
     // console.log(loggedInUser)
+    // useEffect(() => {
+    //     console.log(loggedInUser)
+    // },[loggedInUser])
     const userProfilePic = loggedInUser[0]?.image ? loggedInUser[0]?.image : "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
 
     const handletweet = async (e) => {

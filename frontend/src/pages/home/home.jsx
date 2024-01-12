@@ -6,7 +6,7 @@ import { useUserAuth } from "../../context/UserAuthContext";
 
 const Home = () => {
 
-    const { logOut, user } = useUserAuth();
+    const { logOut } = useUserAuth();
     const navigate = useNavigate();
     const handlelogout = async () => {
         try {
@@ -19,9 +19,10 @@ const Home = () => {
 
     return (
         <div className="app">
-            <Sidebar handlelogout={handlelogout} user={user} />
+            <Sidebar handlelogout={handlelogout}  />
             <Divider />
             <Outlet />
+            <Divider />
             <Widgets />
         </div>
     )

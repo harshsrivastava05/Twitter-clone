@@ -14,19 +14,19 @@ function Post({ p }) {
     const [username, setUsername] = useState(' ');
     const loggedInUser = Uselogedinuser();
     const { user } = useUserAuth();
-
     const result = user?.email?.split('@')[0];
     const googlename = user?.displayName;
 
     useEffect(() => {
-        async function Name(){
-           setName(loggedInUser.fullname) 
-           setUsername(loggedInUser.username)
+        async function Name() {
+            setName(loggedInUser.fullname)
+            setUsername(loggedInUser.username)
+
         }
         Name();
-    },[loggedInUser])
+    }, [loggedInUser])
 
-    const {  photo, post, profilePhoto } = p
+    const { photo, post, profilePhoto } = p
     return (
         <div className="post">
             <div className="post__avatar">
@@ -35,14 +35,14 @@ function Post({ p }) {
             <div className="post__body">
                 <div className="post__header">
                     <div className="post__headerText">
-                        <h3>{name? name:googlename}{" "}
+                        <h3>{name ? name : googlename}{" "}
                             <span className="post__headerSpecial">
-                                <VerifiedUserIcon className="post__badge" /> @{username? username : result}
+                                <VerifiedUserIcon className="post__badge" /> @{username ? username : result}
                             </span>
                         </h3>
                     </div>
                     <div className="post__headerDescription">
-                        <p style={{color:'black', fontWeight:'500'}}>{post}</p>
+                        <p style={{ color: 'black', fontWeight: '500' }}>{post}</p>
                     </div>
                 </div>
                 <img src={photo} alt="" width='500' />

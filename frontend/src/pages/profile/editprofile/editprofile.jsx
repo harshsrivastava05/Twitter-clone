@@ -97,6 +97,7 @@ export default function EditProfile({ user, loggedInUser }) {
             .then(res => res.json())
             .then(data => {
                 console.log('done', data);
+                setOpen(false)
             })
     }
 

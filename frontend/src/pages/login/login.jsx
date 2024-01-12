@@ -84,7 +84,9 @@ const Login = () => {
 
                     </div>
                 </div>
-                <div>
+                <div style={{
+                    color:'black'
+                }}>
                     Don't have an account?
                     <Link
                         to="/signup"

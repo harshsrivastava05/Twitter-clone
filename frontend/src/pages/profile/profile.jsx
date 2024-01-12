@@ -1,11 +1,16 @@
-import React from "react";
+import React from 'react'
+import '../page.css'
+import MainProfile from './mainprofile/mainprofile'
 
-const Profile = () => {
+
+function Profile() {
+
+    
     return (
-        <div className="page">
-            <h2 className="pagetitle">this is Profile</h2>
+        <div className='profilePage'>
+            <MainProfile />
         </div>
     )
 }
 
-export default Profile;
+export default Profile

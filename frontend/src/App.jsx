@@ -32,6 +32,7 @@ function App() {
             <Route path="/" element={<ProtectedRoute><Home /></ProtectedRoute>}>
               <Route index element={<Feed />} />
             </Route>
+            <Route path="*" element={< Navigate to="/" />} />
             <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} >
               <Route path="feed" element={<Feed />} />
               <Route path="bookmark" element={<Bookmark />} />

@@ -4,7 +4,8 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const port = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors({ origin: "https://twitter-clone05.netlify.app" }));
+app.use(cors({ origin: "*" }));
+
 app.use(express.json());
 
 const url =

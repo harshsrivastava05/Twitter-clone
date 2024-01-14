@@ -8,6 +8,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../login/login.css"
 import axios from "axios";
 import { useUserAuth } from "../../context/UserAuthContext";
+import { API_LINK } from "../../context/apilink";
 
 
 export function Signup() {
@@ -30,7 +31,7 @@ export function Signup() {
                 email: email,
                 password:password
             }
-           const res = await axios.post('http://localhost:3000/signup' , user);
+           const res = await axios.post(`${API_LINK}/signup` , user);
            const data = res.data;
                 console.log("data:", data);
                 window.alert("user registered successfully")

@@ -6,6 +6,8 @@ import RepeatIcon from "@mui/icons-material/Repeat";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import PublishIcon from "@mui/icons-material/Publish";
 import Uselogedinuser from '../../../../uselogedinuser/uselogedinuser';
+import "./post.css"
+import { API_LINK } from '../../../../context/apilink';
 
 function Post({ p }) {
   const loggedInUser = Uselogedinuser();
@@ -16,7 +18,7 @@ function Post({ p }) {
   const [posts, setPosts] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/userpost?email=${email}`)
+    fetch(`${API_LINK}/userpost?email=${email}`)
       .then(res => res.json())
       .then(data => {
         setPosts(data);

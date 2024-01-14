@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import Post from "./Post/Post";
 import "./feed.css";
 import Tweetbox from "./tweetbox/tweetbox";
+import { API_LINK } from "../../context/apilink";
 
 function Feed() {
     const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         
-        fetch('http://localhost:3000/post')
+        fetch(`${API_LINK}/post`)
             .then(res => res.json())
             .then(data => {
                 setPosts(data);

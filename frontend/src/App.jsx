@@ -38,7 +38,7 @@ function App() {
               <Route path="bookmark" element={<Bookmark />} />
               <Route path="explore" element={<Explore />} />
               <Route path="list" element={<List />} />
-              <Route path="messages" element={<Message />} />
+              <Route path="messages" element={<Message/>} />
               <Route path="more" element={<More />} />
               <Route path="notification" element={<Notification />} />
               <Route path="profile" element={<Profile />} />

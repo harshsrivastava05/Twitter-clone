@@ -4,8 +4,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const port = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors({ origin: "*" }));
-
+app.use(cors());
 app.use(express.json());
 
 const url =
@@ -15,6 +14,10 @@ const client = new MongoClient(url, {
   useUnifiedTopology: true,
   serverApi: ServerApiVersion.v1,
 });
+
+app.get('/', (req,res) => {
+  res.send("hello")
+})
 
 async function run() {
   try {
@@ -26,6 +29,12 @@ async function run() {
       const post = (await postCollection.find().toArray()).reverse();
       res.send(post);
     });
+
+    app.get('/userPost', async (req, res) => {
+      const email = req.query.email;
+      const post = (await postCollection.find({ email: email }).toArray()).reverse();
+      res.send(post);
+  })
 
     app.post("/post", async (req, res) => {
       const post = req.body;
@@ -46,18 +55,23 @@ async function run() {
     });
 
     app.patch('/userUpdates/:email', async (req, res) => {
-      const filter = req.params;
+      const filter = { email: req.params.email };
       const profile = req.body;
       const options = { upsert: true };
       const updateDoc = { $set: profile };
-      const result = await userCollection.updateOne(filter, updateDoc, options);
-      res.send(result)
-    });
+  
+      try {
+          const result = await userCollection.updateOne(filter, updateDoc, options);
+          res.send(result);
+      } catch (error) {
+          res.status(500).send(error.message);
+      }
+  });  
+  
   } catch (error) {
     console.error("Error saving user:", error);
   }
 }
-
 run().catch(console.dir);
 
 app.listen(port, () => {

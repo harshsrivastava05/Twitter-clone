@@ -4,7 +4,7 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const port = process.env.PORT || 3000;
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "https://twitter-clone05.netlify.app" }));
 app.use(express.json());
 
 const url =
@@ -51,12 +51,12 @@ async function run() {
       const updateDoc = { $set: profile };
       const result = await userCollection.updateOne(filter, updateDoc, options);
       res.send(result)
-  })
-  
+    });
   } catch (error) {
     console.error("Error saving user:", error);
   }
 }
+
 run().catch(console.dir);
 
 app.listen(port, () => {

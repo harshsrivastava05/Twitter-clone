@@ -7,6 +7,7 @@ import Modal from '@mui/material/Modal';
 import TextField from '@mui/material/TextField';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import './editprofile.css';
+import { API_LINK } from '../../../context/apilink';
 // import { useUserAuth } from '../../../context/UserAuthContext';
 
 const style = {
@@ -55,7 +56,7 @@ function EditChild({ dob, setDob }) {
                             type="date"
                             onChange={e => setDob(e.target.value)}
                         />
-                        <Button className='e-button' onClick={() => { setOpen(false); }}>Cancel</Button>
+                        <Button className='e-button' onClick={() => { setOpen(false); }}>Save</Button>
                     </div>
                 </Box>
             </Modal>
@@ -87,7 +88,7 @@ export default function EditProfile({ user, loggedInUser }) {
             dob,
         }
         console.log(editedInfo);
-        fetch(`http://localhost:3000/userUpdates/${email}`, {
+        fetch(`${API_LINK}/userUpdates/${email}`, {
             method: "PATCH",
             headers: {
                 'content-type': 'application/json'

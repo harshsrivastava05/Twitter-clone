@@ -5,18 +5,13 @@ import CenterFocusWeakIcon from '@mui/icons-material/CenterFocusWeak';
 import LockResetIcon from '@mui/icons-material/LockReset';
 import MyLocationIcon from '@mui/icons-material/MyLocation';
 import AddLinkIcon from '@mui/icons-material/AddLink';
-import Post from "./Post/Post"
+import Post from './post/post';
 import { useNavigate } from 'react-router-dom';
 import EditProfile from '../editprofile/editprofile';
 import axios from "axios";
 import Uselogedinuser from '../../../uselogedinuser/uselogedinuser';
 import { useUserAuth } from '../../../context/UserAuthContext';
-import { Avatar } from "@mui/material";
-import VerifiedUserIcon from "@mui/icons-material/VerifiedUser"
-import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
-import RepeatIcon from "@mui/icons-material/Repeat";
-import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
-import PublishIcon from "@mui/icons-material/Publish";
+import { API_LINK } from '../../../context/apilink';
 
 const MainProfile = () => {
     const navigate = useNavigate();
@@ -38,9 +33,9 @@ const MainProfile = () => {
     useEffect(() => {
         async function fetchData() {
             try {
-                const userResponse = await fetch(`http://localhost:3000/logedinuser?email=${email}`);
+                const userResponse = await fetch(`${API_LINK}/logedinuser?email=${email}`);
                 const userData = await userResponse.json();
-                const userPostsResponse = await fetch(`http://localhost:3000/userpost?email=${email}`);
+                const userPostsResponse = await fetch(`${API_LINK}/userpost?email=${email}`);
                 const userPostsData = await userPostsResponse.json();
 
                 setName(userData.fullname || googlename || '');
@@ -77,7 +72,7 @@ const MainProfile = () => {
             setIsLoading(false);
 
             if (url) {
-                const patchResponse = await axios.patch(`http://localhost:3000/userUpdates/${email}`, userCoverImage, {
+                const patchResponse = await axios.patch(`${API_LINK}/userUpdates/${email}`, userCoverImage, {
                     headers: {
                         'Content-Type': 'application/json',
                     },
@@ -112,7 +107,7 @@ const MainProfile = () => {
                 setIsLoading(false);
 
                 if (url) {
-                    fetch(`http://localhost:3000/userUpdates?email=${email}`, {
+                    fetch(`${API_LINK}/userUpdates?email=${email}`, {
                         method: "PATCH",
                         headers: {
                             'content-type': 'application/json',

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useUserAuth } from "../context/UserAuthContext";
 import axios from "axios";
+import { API_LINK } from "../context/apilink";
 
 function Uselogedinuser() {
     const { user } = useUserAuth(); 
@@ -10,7 +11,7 @@ function Uselogedinuser() {
     useEffect(() => {
         async function fetchData() {
             try {
-                const res = await axios.get(`http://localhost:3000/logedinuser?email=${email}`);
+                const res = await axios.get(`${API_LINK}/logedinuser?email=${email}`);
                 const data = res.data;
                 setLoggedInUser(data);
             } catch (error) {

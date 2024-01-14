@@ -5,6 +5,7 @@ import "./tweetbox.css"
 import axios from 'axios';
 import Uselogedinuser from "../../../uselogedinuser/uselogedinuser";
 import { useUserAuth } from "../../../context/UserAuthContext";
+import { API_LINK } from "../../../context/apilink";
 
 const Tweetbox = () => {
 
@@ -29,7 +30,7 @@ const Tweetbox = () => {
             let userData;
 
             if (user?.providerData[0]?.providerId === 'password') {
-                const res = await axios.get(`http://localhost:3000/logedinuser?email=${email}`);
+                const res = await axios.get(`${API_LINK}/logedinuser?email=${email}`);
                 userData = res.data[0];
             } else {
                 userData = loggedInUser[0];
@@ -49,7 +50,7 @@ const Tweetbox = () => {
 
             console.log(userPost);
 
-            const res = await axios.post('http://localhost:3000/post', userPost);
+            const res = await axios.post(`${API_LINK}/post`, userPost);
             const data = res.data;
             console.log(data);
         } catch (error) {

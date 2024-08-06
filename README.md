@@ -14,6 +14,16 @@ Features:
 - Database: MongoDB
 - Authentication: Google Firebase
 
+ **How to Use:**
+
+1. Clone the repository to your local machine.
+2. Install dependencies using `npm install` in both frontend and backend folders.
+3. Configure MongoDB connection in the backend.
+4. Run the backend server using `npm start` in the `/backend` directory.
+5. Run the frontend development server using `npm start` in the `/frontend` directory.
+6. Access the application in your browser at `http://localhost:3000`.
+
+
 **Sign-up page**
 ![Screenshot 2024-05-04 203233](https://github.com/harshsrivastava05/Twitter-clone/assets/130855160/899268c3-5582-4059-9153-fa63c0d87c90)
 
